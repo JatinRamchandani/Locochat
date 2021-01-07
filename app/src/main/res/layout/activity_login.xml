@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login"
+    android:background="#121212"
+    >
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:paddingHorizontal="20dp"
+        >
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_text_input"
+            android:hint="Email"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="8dp"
+            android:textColorHint="#BDBDBD"
+
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/log_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_text_input"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="8dp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="#BDBDBD"
+            android:hint="Password"
+            android:paddingHorizontal="10dp"
+            app:hintTextColor="#FFFFFF"
+            android:textColorHint="#BDBDBD"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/log_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:text="Login"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/createAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New User? Click here"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="40dp"
+            android:textStyle="italic"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
