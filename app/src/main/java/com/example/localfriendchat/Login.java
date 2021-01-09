@@ -13,7 +13,12 @@ import android.widget.Toast;
 
 import com.example.localfriendchat.Retrofit.User;
 import com.example.localfriendchat.Retrofit.UserApi;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -38,6 +43,12 @@ public class Login extends AppCompatActivity {
     public static final String EMAIL="email";
     public static final String FIRST_NAME="first_name";
     public static final String LAST_NAME="last_name";
+    public static final String SOCKET_ID="socket_id";
+
+
+    private String mUseremail;
+    private static String useremail;
+    private Socket mSocket;
 
 
     @Override
@@ -45,6 +56,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        ChatApplication app = (ChatApplication) getApplication();
+        mSocket = app.getSocket();
 
         email=findViewById(R.id.log_email);
         pass=findViewById(R.id.log_pass);
@@ -72,6 +86,11 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
+
+        useremail=email.getText().toString().trim();
+//        attemptLogin();
+//        mSocket.on("login", onLogin);
+
         user=new JsonObject();
         user.addProperty("email",email.getText().toString().trim());
         user.addProperty("password",pass.getText().toString().trim());
@@ -98,6 +117,9 @@ public class Login extends AppCompatActivity {
                     editor.putString(FIRST_NAME,user.get(0).getFirstName());
                     editor.putString(LAST_NAME,user.get(0).getLastName());
                     editor.apply();
+
+                    attemptLogin();
+                    mSocket.on("login", onLogin);
 
                     startActivity(new Intent(getApplicationContext(),MainScreen.class));
                 }else{
@@ -129,4 +151,58 @@ public class Login extends AppCompatActivity {
             return false;
         }
     }
+
+
+    private void attemptLogin() {
+        SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        mUseremail = sharedPreferences.getString(USERNAME,"");
+        mSocket.emit("add user", mUseremail);
+    }
+
+    private Emitter.Listener onLogin = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject data = (JSONObject) args[0];
+
+            int numUsers;
+            String socketid;
+            try {
+                numUsers = data.getInt("numUsers");
+                socketid = data.getString("socketID");
+
+                SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString(SOCKET_ID,socketid);
+                editor.apply();
+
+                JsonObject jsonObject=new JsonObject();
+                jsonObject.addProperty("email",sharedPreferences.getString(EMAIL,""));
+                jsonObject.addProperty("socket_id",socketid);
+
+                Call<JsonObject> call= UserApi.getUserService().socketupdate(jsonObject);
+
+                call.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        Log.e("UPDATED BHAIYAA JI", String.valueOf(response.body()));
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                        Toast.makeText(getApplicationContext(), "Location update failed", Toast.LENGTH_SHORT).show();
+                        Log.e("EEEEEEEEEEE NOT UPDATED",t.toString());
+
+                    }
+                });
+
+                Log.e("SOCKET_IDDDD",socketid);
+            } catch (JSONException e) {
+                return;
+            }
+
+        }
+    };
+
 }

@@ -21,6 +21,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.localfriendchat.Retrofit.User;
@@ -33,14 +34,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Profile extends AppCompatActivity implements LocationListener  {
+public class Profile extends AppCompatActivity  {
 
     private Button logout;
+    private TextView username,full_name,email;
 
 
-    public JsonObject newlocation=new JsonObject();;
-    private double latitude;
-    private double longitude;
+//    public JsonObject newlocation=new JsonObject();;
+//    private double latitude;
+//    private double longitude;
 
 
     public static final String SHARED_PREFS="shared_prefs";
@@ -65,6 +67,18 @@ public class Profile extends AppCompatActivity implements LocationListener  {
         Toast.makeText(this, "EMAIL "+useremail, Toast.LENGTH_SHORT).show();
 
 
+        username=findViewById(R.id.username);
+        full_name=findViewById(R.id.full_name);
+        email=findViewById(R.id.profile_email);
+
+
+        username.setText(sharedPreferences.getString(USERNAME,""));
+        full_name.setText(sharedPreferences.getString(FIRST_NAME,"")+" "+sharedPreferences.getString(LAST_NAME,""));
+        email.setText(sharedPreferences.getString(EMAIL,""));
+
+
+
+
         logout=findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,70 +98,70 @@ public class Profile extends AppCompatActivity implements LocationListener  {
         });
 
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        LocationListener locationListener = new Profile();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat
-                    .requestPermissions(
-                            this,
-                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
-                            123);
-        }
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 10, locationListener);
-        }
-
-    }
-
-    @Override
-    public void onLocationChanged(Location loc) {
-        longitude =loc.getLongitude();
-        Log.v("LAATTI", String.valueOf(longitude));
-        latitude = loc.getLatitude();
-        Log.v("LONGI", String.valueOf(latitude));
-
-
-        newlocation.addProperty("email",useremail);
-        newlocation.addProperty("latitude",latitude);
-        newlocation.addProperty("longitude",longitude);
-
-
-        Call<JsonObject> call= UserApi.getUserService().locationupdate(newlocation);
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                Toast.makeText(getApplicationContext(), "Location Update Successfull", Toast.LENGTH_SHORT).show();
-                Log.e("USERRRR", String.valueOf(response.body()));
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-
-                Toast.makeText(getApplicationContext(), "Location update failed", Toast.LENGTH_SHORT).show();
-                Log.e("EEEEEEEEEEEEEEEEEEEEEE",t.toString());
-
-            }
-        });
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//
+//        LocationListener locationListener = new Profile();
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat
+//                    .requestPermissions(
+//                            this,
+//                            new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+//                            123);
+//        }
+//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 10, locationListener);
+//        }
 
     }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
+//
+//    @Override
+//    public void onLocationChanged(Location loc) {
+//        longitude =loc.getLongitude();
+//        Log.v("LAATTI", String.valueOf(longitude));
+//        latitude = loc.getLatitude();
+//        Log.v("LONGI", String.valueOf(latitude));
+//
+//
+//        newlocation.addProperty("email",useremail);
+//        newlocation.addProperty("latitude",latitude);
+//        newlocation.addProperty("longitude",longitude);
+//
+//
+//        Call<JsonObject> call= UserApi.getUserService().locationupdate(newlocation);
+//
+//        call.enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+////                Toast.makeText(getApplicationContext(), "Location Update Successfull", Toast.LENGTH_SHORT).show();
+//                Log.e("USERRRR", String.valueOf(response.body()));
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//
+//                Toast.makeText(getApplicationContext(), "Location update failed", Toast.LENGTH_SHORT).show();
+//                Log.e("EEEEEEEEEEEEEEEEEEEEEE",t.toString());
+//
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String provider) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//
+//    }
 
 }

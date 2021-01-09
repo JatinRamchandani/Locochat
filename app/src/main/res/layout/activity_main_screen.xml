@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainScreen"
-    android:background="#212121">
+    android:background="@drawable/chatbg">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mstoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:title="Main Page"
+        app:title="People Around You"
         app:titleTextColor="#FFFFFF"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,6 +20,7 @@
         android:layout_below="@id/mstoolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

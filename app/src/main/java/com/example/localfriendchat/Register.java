@@ -110,7 +110,8 @@ public class Register extends AppCompatActivity implements LocationListener {
 
                 Toast.makeText(getApplicationContext(), " Registered Successfully", Toast.LENGTH_SHORT).show();
                 Log.e("RRRRESSSSS",response.body().toString());
-                startActivity(new Intent(getApplicationContext(),MainScreen.class));
+//                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
             }
 
             @Override

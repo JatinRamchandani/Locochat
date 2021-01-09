@@ -22,7 +22,7 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.AllVie
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
-        void onListItemClick(String username);
+        void onListItemClick(String username,String socket_id);
     }
 
 
@@ -37,13 +37,14 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.AllVie
             implements View.OnClickListener {
 
         public final ImageView userImage;
-        public  final TextView username;
+        public  final TextView username, fullname;
 
         public AllViewHolder(View view) {
             super(view);
 
             userImage=(ImageView) view.findViewById(R.id.user_image);
             username=(TextView) view.findViewById(R.id.user_name);
+            fullname=(TextView) view.findViewById(R.id.full_name);
             view.setOnClickListener(this);
         }
 
@@ -53,7 +54,8 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.AllVie
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             String userName =users.get(adapterPosition).getUsername();
-            mOnClickListener.onListItemClick(userName);
+            String socket_id =users.get(adapterPosition).getSocket_id();
+            mOnClickListener.onListItemClick(userName,socket_id);
 
         }
 
@@ -78,7 +80,11 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.AllVie
     @Override
     public void onBindViewHolder(AllViewHolder ViewHolder, int position) {
         String name= users.get(position).getUsername();
+        String fname= users.get(position).getFirstName();
+        String lname= users.get(position).getLastName();
+        String full_name=fname+" "+lname;
         ViewHolder.username.setText(name);
+        ViewHolder.fullname.setText(full_name);
     }
 
 

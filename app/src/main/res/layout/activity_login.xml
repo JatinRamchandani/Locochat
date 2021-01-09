@@ -18,6 +18,27 @@
         android:layout_centerVertical="true"
         android:paddingHorizontal="20dp"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOCOCHAT"
+            android:fontFamily="sans-serif"
+            android:layout_marginLeft="3dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_marginLeft="3dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
         <com.google.android.material.textfield.TextInputLayout
 
             android:layout_width="match_parent"
@@ -79,7 +100,7 @@
             android:id="@+id/createAcc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New User? Click here"
+            android:text="New User? Sign up to create new account"
             android:layout_gravity="center_horizontal"
             android:textColor="#FFFFFF"
             android:layout_marginTop="40dp"

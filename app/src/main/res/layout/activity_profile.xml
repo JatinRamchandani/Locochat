@@ -4,14 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile">
+    tools:context=".Profile"
+    android:background="#212121">
 
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/pbg3"
+        android:layout_marginTop="0dp"/>
 
-    <Button
-        android:id="@+id/logout"
+    <ImageView
+        android:id="@+id/dp"
         android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:src="@drawable/person"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_below="@id/dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        />
+        android:id="@+id/profilell"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="30dp"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hi I am Good ! How about You?"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/full_name"
+            android:background="@drawable/search_result_bg"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="40dp"/>
+        <TextView
+            android:id="@+id/profile_email"
+            android:padding="10dp"
+            android:background="@drawable/search_result_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:layout_below="@id/profilell"
+            android:layout_marginTop="60dp"
+            />
+
+
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

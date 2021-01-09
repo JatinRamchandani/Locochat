@@ -30,6 +30,9 @@ public class User {
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("socket_id")
+    @Expose
+    private String socket_id;
 
     public Integer getId() {
         return id;
@@ -92,5 +95,13 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSocket_id() {
+        return socket_id;
+    }
+
+    public void setSocket_id(String socket_id) {
+        this.socket_id = socket_id;
     }
 }

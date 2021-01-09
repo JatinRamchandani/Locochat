@@ -16,7 +16,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public class UserApi {
-    public static final String BASE_URL="http://192.168.43.183:8000/api/users/";
+    public static final String BASE_URL="https://syntax-app-api-server.herokuapp.com/api/users/";
 
     public static UserService userService=null;
 
@@ -55,6 +55,8 @@ public class UserApi {
         @GET("getusers/")
         Call<List<User>> allusers();
 
-
+        @Headers({"Content-Type: application/json;charset=UTF-8"})
+        @POST("socketupdate/")
+        Call<JsonObject> socketupdate(@Body JsonObject jsonObject);
     }
 }

@@ -4,13 +4,6 @@
 
 
     <item
-        android:icon="@drawable/private_chat_symbol"
-        android:id="@+id/pchats"
-        android:title="pchats"
-        app:showAsAction="always"
-        />
-
-    <item
         android:icon="@drawable/server_chats_symbol"
         android:id="@+id/serverchats"
         android:title="profile"
