@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.localfriendchat.Retrofit.User;
 import com.example.localfriendchat.Retrofit.UserApi;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -44,6 +47,7 @@ public class Profile extends AppCompatActivity  {
 //    private double latitude;
 //    private double longitude;
 
+    private Socket mSocket;
 
     public static final String SHARED_PREFS="shared_prefs";
     public static final String LOGGED_IN="logged_in";
@@ -66,10 +70,23 @@ public class Profile extends AppCompatActivity  {
         useremail=sharedPreferences.getString(EMAIL,"");
         Toast.makeText(this, "EMAIL "+useremail, Toast.LENGTH_SHORT).show();
 
+        ChatApplication app = (ChatApplication) getApplication();
+        mSocket = app.getSocket();
 
         username=findViewById(R.id.username);
         full_name=findViewById(R.id.full_name);
         email=findViewById(R.id.profile_email);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                //At this point you should start the login activity and finish this one
+                finish();
+            }
+        }, intentFilter);
 
 
         username.setText(sharedPreferences.getString(USERNAME,""));
@@ -92,6 +109,12 @@ public class Profile extends AppCompatActivity  {
                 editor.putBoolean(LOGGED_IN,false);
 
                 editor.apply();
+
+                mSocket.disconnect();
+
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("com.example.ACTION_LOGOUT");
+                sendBroadcast(broadcastIntent);
 
                 startActivity(new Intent(getApplicationContext(),Login.class));
             }

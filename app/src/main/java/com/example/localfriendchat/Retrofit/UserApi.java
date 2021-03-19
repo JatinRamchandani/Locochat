@@ -16,7 +16,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public class UserApi {
-    public static final String BASE_URL="https://syntax-app-api-server.herokuapp.com/api/users/";
+    public static final String BASE_URL="http://192.168.43.183:8000/api/users/";
 
     public static UserService userService=null;
 

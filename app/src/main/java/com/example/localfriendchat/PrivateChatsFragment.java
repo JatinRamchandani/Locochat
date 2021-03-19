@@ -255,7 +255,7 @@ public class PrivateChatsFragment extends Fragment {
             return;
         }
 
-        mInputMessageView.setText("");
+
         addMessage(mUsername, message);
 
         SharedPreferences sharedPreferences=this.getActivity().getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
@@ -264,15 +264,20 @@ public class PrivateChatsFragment extends Fragment {
         // perform the sending message attempt.
 
         String json = "{message:"+message+","+"socket_io:"+chatter+"}";
-        JSONObject jsonObject= null;
         try {
-            jsonObject = new JSONObject(json);
+//            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("socket_io",sharedPreferences.getString(CURRENT_USER_CHAT,""));
+            jsonObject1.put("message",mInputMessageView.getText().toString().trim());
+
+            mSocket.emit("new private message", jsonObject1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        mInputMessageView.setText("");
 
-        mSocket.emit("new private message", jsonObject);
+
     }
 
     private void startSignIn() {
