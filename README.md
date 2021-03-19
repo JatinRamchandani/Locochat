@@ -12,6 +12,6 @@
 ---
 
 ## Locochat Demo
-https://github.com/JatinRamchandani/raw/blob/master/LocochatDemo.mp4
+Video link : https://github.com/JatinRamchandani/Locochat/raw/master/LocochatDemo.mp4
 
 
